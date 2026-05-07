@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  background-color: #f5f7fb;
+}
+
+mat-card {
+  border-radius: 20px;
+}

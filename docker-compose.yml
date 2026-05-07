@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend.Dockerfile
+    image: restaurant_backend
+    container_name: restaurant_backend
+    environment:
+      - ConnectionStrings__DefaultConnection=Data Source=restaurant.db
+      - JwtSettings__Secret=SuperSecretKey123456!
+      - JwtSettings__Issuer=RestaurantAPI
+      - JwtSettings__Audience=RestaurantClient
+    ports:
+      - "5000:80"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend.Dockerfile
+    image: restaurant_frontend
+    container_name: restaurant_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend

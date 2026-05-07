@@ -1,0 +1,35 @@
+<div class="auth-page">
+  <mat-card class="auth-card">
+    <h1>Cadastrar</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="administrador">Administrador</mat-option>
+          <mat-option value="caixa">Caixa</mat-option>
+          <mat-option value="garcom">Garçom</mat-option>
+          <mat-option value="cozinha">Cozinha</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="loading">
+        {{ loading ? 'Criando...' : 'Cadastrar' }}
+      </button>
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="links">
+        <a routerLink="/login">Já tenho uma conta</a>
+      </div>
+    </form>
+  </mat-card>
+</div>
