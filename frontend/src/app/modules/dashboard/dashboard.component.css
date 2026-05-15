@@ -2,18 +2,63 @@
   padding: 24px;
 }
 
+.actions-grid,
 .dashboard-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 24px;
 }
 
+.action-card,
 .summary-card {
-  min-height: 180px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  padding: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.action-card:hover,
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.action-card mat-icon {
+  font-size: 40px;
+  color: #1976d2;
+  margin-bottom: 16px;
+}
+
+.action-card h2,
+.summary-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.4rem;
+}
+
+.action-card p,
+.summary-card p {
+  margin: 0 0 20px;
+  color: #546e7a;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.summary-card p {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #0d47a1;
+}
+
+.summary-card small {
+  color: #546e7a;
+}
+
+.action-card button {
+  align-self: flex-start;
 }
 
 .spacer {

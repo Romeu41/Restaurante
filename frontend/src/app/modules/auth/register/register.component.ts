@@ -22,13 +22,21 @@ export class RegisterComponent {
     });
   }
 
+  successMessage = '';
+
   submit(): void {
     if (this.form.invalid) {
       return;
     }
     this.loading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
     this.authService.register(this.form.value).subscribe({
-      next: () => this.router.navigate(['/login']),
+      next: () => {
+        this.successMessage = 'Conta criada com sucesso! Redirecionando para o login...';
+        setTimeout(() => this.router.navigate(['/login']), 1200);
+      },
       error: err => {
         this.errorMessage = err?.error?.message || 'Falha ao criar usuário';
         this.loading = false;

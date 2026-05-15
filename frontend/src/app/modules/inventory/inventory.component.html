@@ -1,9 +1,77 @@
 <div class="module-shell">
   <mat-toolbar color="primary">
-    <span>Estoque</span>
+    <span>Registro de Estoque</span>
   </mat-toolbar>
-  <mat-card>
-    <h2>Controle de estoque</h2>
-    <p>Entrada e saída, alertas e validade.</p>
-  </mat-card>
+
+  <div class="module-content">
+    <mat-card class="form-card">
+      <h2>Registrar item</h2>
+      <p>Adicione produtos ou faça saída de estoque para controlar quantidades.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Produto</mat-label>
+          <input matInput formControlName="productName" placeholder="Nome do produto" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>SKU</mat-label>
+          <input matInput formControlName="sku" placeholder="Código do produto" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Tipo de movimentação</mat-label>
+          <mat-select formControlName="movementType">
+            <mat-option value="entrada">Entrada</mat-option>
+            <mat-option value="saida">Saída</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="grid-row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Quantidade</mat-label>
+            <input matInput type="number" formControlName="quantity" placeholder="0" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Valor unitário</mat-label>
+            <input matInput type="number" formControlName="unitPrice" step="0.01" placeholder="0,00" />
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" class="full-width" type="submit">
+          Registrar estoque
+        </button>
+      </form>
+
+      <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </mat-card>
+
+    <mat-card class="list-card">
+      <div class="list-header">
+        <div>
+          <h2>Movimentos de estoque</h2>
+          <p>{{ inventory.length }} registro(s)</p>
+        </div>
+      </div>
+
+      <div *ngIf="inventory.length === 0" class="empty-state">
+        Nenhum movimento registrado ainda. Use o formulário para adicionar um item.
+      </div>
+
+      <div class="inventory-list" *ngIf="inventory.length > 0">
+        <div class="inventory-item" *ngFor="let item of inventory">
+          <div>
+            <h3>{{ item.productName }}</h3>
+            <p>{{ item.sku }} • {{ item.movementType | titlecase }} • {{ item.quantity }} unidade(s)</p>
+          </div>
+          <div class="inventory-meta">
+            <span>R$ {{ item.unitPrice | number:'1.2-2' }}</span>
+            <span>{{ item.createdAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

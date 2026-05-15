@@ -1,22 +1,31 @@
 <div class="auth-page">
   <mat-card class="auth-card">
-    <h1>Entrar</h1>
+    <div class="auth-header">
+      <div>
+        <span class="brand">Restaurant Management</span>
+        <h1>Bem-vindo de volta</h1>
+        <p>Entre com sua conta para acessar o painel do restaurante.</p>
+      </div>
+      <span class="auth-chip">Login</span>
+    </div>
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="outline" class="full-width input-field">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" />
+        <input matInput formControlName="email" type="email" autocomplete="email" />
       </mat-form-field>
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="outline" class="full-width input-field">
         <mat-label>Senha</mat-label>
-        <input matInput formControlName="password" type="password" />
+        <input matInput formControlName="password" type="password" autocomplete="current-password" />
       </mat-form-field>
-      <button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="loading">
+      <button mat-raised-button color="primary" class="full-width login-button" type="submit" [disabled]="loading">
         {{ loading ? 'Carregando...' : 'Entrar' }}
       </button>
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
-      <div class="links">
-        <a routerLink="/register">Criar conta</a>
-      </div>
     </form>
+    <div class="register-panel">
+      <button mat-flat-button color="accent" routerLink="/register" class="full-width register-button" type="button">
+        Criar conta
+      </button>
+    </div>
   </mat-card>
 </div>

@@ -1,9 +1,66 @@
 <div class="module-shell">
   <mat-toolbar color="primary">
-    <span>Clientes</span>
+    <span>Cadastro de Clientes</span>
   </mat-toolbar>
-  <mat-card>
-    <h2>Cadastro de clientes</h2>
-    <p>Histórico de compras e fidelidade.</p>
-  </mat-card>
+
+  <div class="module-content">
+    <mat-card class="form-card">
+      <h2>Novo cliente</h2>
+      <p>Registre dados básicos do cliente para acompanhar vendas e fidelidade.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="name" placeholder="Nome completo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="email@restaurante.com" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="phone" type="tel" placeholder="(00) 00000-0000" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Observações</mat-label>
+          <textarea matInput formControlName="notes" rows="4" placeholder="Observações adicionais"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="full-width" type="submit">
+          Cadastrar cliente
+        </button>
+      </form>
+
+      <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </mat-card>
+
+    <mat-card class="list-card">
+      <div class="list-header">
+        <div>
+          <h2>Clientes cadastrados</h2>
+          <p>{{ clients.length }} cliente(s) registrado(s)</p>
+        </div>
+      </div>
+
+      <div *ngIf="clients.length === 0" class="empty-state">
+        Nenhum cliente cadastrado ainda. Preencha o formulário para começar.
+      </div>
+
+      <div class="client-list" *ngIf="clients.length > 0">
+        <div class="client-item" *ngFor="let client of clients">
+          <div>
+            <h3>{{ client.name }}</h3>
+            <p>{{ client.email }} • {{ client.phone }}</p>
+          </div>
+          <div class="client-meta">
+            <span>{{ client.createdAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

@@ -2,25 +2,50 @@
   <mat-toolbar color="primary">
     <span>Dashboard</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/orders">Registrar Venda</button>
+    <button mat-button routerLink="/inventory">Estoque</button>
+    <button mat-button routerLink="/clients">Clientes</button>
   </mat-toolbar>
+
+  <section class="actions-grid">
+    <mat-card class="action-card" routerLink="/orders">
+      <mat-icon>shopping_cart</mat-icon>
+      <h2>Registrar Venda</h2>
+      <p>Abrir nova comanda, adicionar itens e finalizar pedido.</p>
+      <button mat-flat-button color="accent">Ir para vendas</button>
+    </mat-card>
+    <mat-card class="action-card" routerLink="/inventory">
+      <mat-icon>inventory_2</mat-icon>
+      <h2>Registrar Produto</h2>
+      <p>Adicionar novo produto ao estoque e gerenciar quantidades.</p>
+      <button mat-flat-button color="accent">Ir para estoque</button>
+    </mat-card>
+    <mat-card class="action-card" routerLink="/clients">
+      <mat-icon>groups</mat-icon>
+      <h2>Cadastrar Cliente</h2>
+      <p>Registrar clientes e manter histórico de vendas.</p>
+      <button mat-flat-button color="accent">Ir para clientes</button>
+    </mat-card>
+  </section>
 
   <div class="dashboard-grid">
     <mat-card class="summary-card">
-      <h2>Faturamento Diário</h2>
-      <p>R$ 12.450,00</p>
+      <h2>Clientes cadastrados</h2>
+      <p>{{ clientCount }}</p>
     </mat-card>
     <mat-card class="summary-card">
-      <h2>Pedidos em Andamento</h2>
-      <p>12</p>
+      <h2>Produtos no estoque</h2>
+      <p>{{ stockItemCount }}</p>
     </mat-card>
     <mat-card class="summary-card">
-      <h2>Produtos Mais Vendidos</h2>
-      <p>Pizza, Churrasco e Refrigerante</p>
+      <h2>Quantidade de estoque</h2>
+      <p>{{ stockTotalQuantity }}</p>
     </mat-card>
     <mat-card class="summary-card">
-      <h2>Mesas Ocupadas</h2>
-      <p>8</p>
+      <h2>Itens faltando</h2>
+      <p>{{ missingItemCount }}</p>
+      <small *ngIf="hasMissingItems">Existem produtos sem estoque</small>
+      <small *ngIf="!hasMissingItems">Estoque OK</small>
     </mat-card>
   </div>
 </div>

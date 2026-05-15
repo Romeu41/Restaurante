@@ -7,7 +7,7 @@ services:
     container_name: restaurant_backend
     environment:
       - ConnectionStrings__DefaultConnection=Data Source=restaurant.db
-      - JwtSettings__Secret=SuperSecretKey123456!
+      - JwtSettings__Secret=SuperSecretKey123456789012345678901234567890
       - JwtSettings__Issuer=RestaurantAPI
       - JwtSettings__Audience=RestaurantClient
     ports:

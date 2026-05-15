@@ -1,9 +1,100 @@
 <div class="module-shell">
   <mat-toolbar color="primary">
-    <span>Gestão de Pedidos</span>
+    <span>Registrar Venda</span>
   </mat-toolbar>
-  <mat-card>
-    <h2>Pedidos</h2>
-    <p>Abertura, edição, histórico e impressão de comandas.</p>
-  </mat-card>
+
+  <div class="module-content">
+    <mat-card class="form-card">
+      <h2>Nova venda</h2>
+      <p>Registre o cliente, os produtos vendidos e finalize a comanda.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="clientId">
+            <mat-option [value]="null">Sem cliente</mat-option>
+            <mat-option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Observações</mat-label>
+          <textarea matInput formControlName="notes" rows="3" placeholder="Observações sobre a venda"></textarea>
+        </mat-form-field>
+
+        <div formArrayName="items" class="items-section">
+          <div class="item-row" *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <div class="item-field-group">
+              <mat-form-field appearance="fill" class="item-field">
+                <mat-label>Produto</mat-label>
+                <input matInput formControlName="productName" placeholder="Nome do produto" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="item-field">
+                <mat-label>SKU</mat-label>
+                <input matInput formControlName="sku" placeholder="SKU do produto" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="item-field small-field">
+                <mat-label>Qtd.</mat-label>
+                <input matInput type="number" formControlName="quantity" placeholder="1" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="item-field small-field">
+                <mat-label>Valor</mat-label>
+                <input matInput type="number" formControlName="unitPrice" step="0.01" placeholder="0,00" />
+              </mat-form-field>
+            </div>
+
+            <div class="item-actions">
+              <button mat-icon-button color="warn" type="button" (click)="removeItem(i)" [disabled]="items.length === 1">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button mat-button type="button" color="primary" class="add-item-button" (click)="addItem()">
+          <mat-icon>add</mat-icon>
+          Adicionar item
+        </button>
+
+        <div class="order-total">
+          Total: R$ {{ getTotal() | number:'1.2-2' }}
+        </div>
+
+        <button mat-raised-button color="primary" class="full-width" type="submit">
+          Registrar venda
+        </button>
+      </form>
+
+      <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </mat-card>
+
+    <mat-card class="list-card">
+      <div class="list-header">
+        <div>
+          <h2>Vendas registradas</h2>
+          <p>{{ orders.length }} venda(s) gravada(s)</p>
+        </div>
+      </div>
+
+      <div *ngIf="orders.length === 0" class="empty-state">
+        Nenhuma venda registrada ainda.
+      </div>
+
+      <div class="order-list" *ngIf="orders.length > 0">
+        <div class="order-item" *ngFor="let order of orders | slice:0:5">
+          <div>
+            <h3>{{ order.clientName }}</h3>
+            <p>{{ order.items.length }} item(s) • R$ {{ order.totalAmount | number:'1.2-2' }}</p>
+          </div>
+          <div class="order-meta">
+            <span>{{ order.createdAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

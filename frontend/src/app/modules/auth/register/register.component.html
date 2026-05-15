@@ -1,6 +1,13 @@
 <div class="auth-page">
   <mat-card class="auth-card">
-    <h1>Cadastrar</h1>
+    <div class="auth-header">
+      <div>
+        <span class="brand">Restaurant Management</span>
+        <h1>Crie sua conta</h1>
+        <p>Cadastre-se para começar a gerenciar mesas, pedidos e vendas.</p>
+      </div>
+      <span class="auth-chip">Cadastro</span>
+    </div>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Nome</mat-label>
@@ -27,6 +34,7 @@
         {{ loading ? 'Criando...' : 'Cadastrar' }}
       </button>
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
       <div class="links">
         <a routerLink="/login">Já tenho uma conta</a>
       </div>
