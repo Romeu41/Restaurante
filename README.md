@@ -1,43 +1,43 @@
 # Restaurante Management
 
-Sistema completo de gerenciamento para restaurante com frontend Angular 18 e backend ASP.NET Core 8.
+Sistema de gerenciamento para restaurante com frontend Angular 18 e backend ASP.NET Core 8.
 
 ## Estrutura do projeto
 
-- `/frontend` - aplicação Angular 18 com Angular Material, JWT e roteamento.
-- `/backend` - API ASP.NET Core 8 com Entity Framework Core, JWT, Swagger e arquitetura em camadas.
+- `/frontend` - aplicação Angular 18 com Angular Material, JWT, autenticação e módulos organizados.
+- `/backend` - API ASP.NET Core 8 com Entity Framework Core, JWT e arquitetura em camadas.
 - `/database` - scripts SQL iniciais.
-- `/docker` - arquivos Docker e docker-compose.
+- `/docker` - Dockerfiles e `docker-compose.yml`.
+
+## Funcionalidades principais
+
+- Autenticação por login e cadastro de usuário.
+- Dashboard com resumo de clientes, estoque e itens faltando.
+- Cadastro de clientes com lista de clientes registrados.
+- Registro de estoque (entrada/saída) com histórico de movimentações.
+- Registro de vendas com múltiplos itens e cálculo do total.
 
 ## Requisitos
 
 - Docker e Docker Compose
 - .NET 8 SDK
 - Node.js 20+
-- SQL Server (opcional se usar Docker)
 
-## Instalação e execução
+## Execução rápida
 
-### Usando Docker
-
-1. Entre na pasta do projeto:
+### Com Docker
 
 ```bash
-cd /workspace/restaurant-management
-```
-
-2. Execute:
-
-```bash
+cd c:/workspace/restaurant-management
 docker-compose up --build
 ```
 
-3. Acesse:
+Acesse:
 
 - Frontend: `http://localhost:4200`
 - Backend: `http://localhost:5000/swagger`
 
-### Manual
+### Manualmente
 
 #### Backend
 
@@ -56,29 +56,17 @@ npm install
 npm start
 ```
 
-## Banco de dados
+## Uso
 
-O backend está configurado para usar SQL Server.
-No Docker Compose, o serviço `sqlserver` é usado automaticamente.
-
-Se precisar configurar manualmente, atualize `backend/appsettings.json` com a string de conexão correta.
-
-## Migrations
-
-No backend:
-
-```bash
-cd backend
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
-
-## Swagger
-
-`http://localhost:5000/swagger`
+- Faça login ou cadastre uma nova conta.
+- Use o dashboard para acessar rapidamente:
+  - Registrar venda
+  - Registrar produto no estoque
+  - Cadastrar cliente
+- As telas salvam dados localmente para clientes, estoque e pedidos.
 
 ## Observações
 
-- O backend inclui autenticação JWT, validação global e logs.
-- O frontend possui interceptors, guards e módulos organizados.
-- O projeto foi estruturado pensando em ambiente de produção e facilidade de manutenção.
+- O backend usa JWT e está preparado para uso com SQL Server.
+- Caso use Docker, o `docker-compose.yml` já monta as aplicações e o banco.
+- Atualize `backend/appsettings.json` se houver necessidade de configurar outra string de conexão.
